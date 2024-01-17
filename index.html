@@ -154,7 +154,7 @@
       <div class="hero-body">
         <h2 class="title is-4">Crazyflie switching position using GCBF+</h2>
         <center>
-          <img width=40% src="./figs/cf_swap8_overlay_withpaths_numbered.png"
+          <img width=40% src="./figs/cf_swap8_overlay.jpg"
           alt="Swapping task for the Crazyflie drone platform using GCBF+"/>
           <video width="52%" autoplay="" muted="" loop="">
             <source src="videos/swap.mp4" type="video/mp4">
@@ -164,7 +164,7 @@
       <div class="hero-body">
         <h2 class="title is-4">Crazyflie switching position with moving obstacle using GCBF+</h2>
         <center>
-          <img width=37.3% src="./figs/cf_atk6_overlay.png"
+          <img width=40% src="./figs/cf_atk6_overlay.jpg"
           alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
           <video width="52%" autoplay="" muted="" loop="">
             <source src="videos/attacker.mp4" type="video/mp4">
@@ -174,7 +174,7 @@
       <div class="hero-body">
         <h2 class="title is-4">Crazyflie docking using GCBF+</h2>
         <center>
-          <img width=34.7% src="./figs/cf_dock8_overlay.png"
+          <img width=40% src="./figs/cf_dock6_overlay.jpg"
           alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
           <video width="52%" autoplay="" muted="" loop="">
             <source src="videos/docking.mp4" type="video/mp4">
@@ -275,16 +275,77 @@
     <p>
       The graph trajectories \(\{\mathcal G^k_0, \mathcal G^k_1, \mathcal G^k_2, \mathcal G^k_3, \dots, \}\) are generated using the previous step learned control policy \(\pi_\phi\), and is labeled as safe control invariant \(\mathcal S_c\) data and unsafe \(\mathcal S_u\) data for training. A nominal control policy \(\pi_{\mathrm{nom}}\) for goal reaching is used in a CBF-QP with the previously learned GCBF \(h_\theta\) to generate \(\pi_{\mathrm{QP}}\). Then, the QP policy along with the CBF conditions are used to define the loss \(\mathcal L\).
     </p>
-    <img src="figs/cbf.png"
+    <center>
+      <video width="40%" autoplay="" muted="" loop="">
+        <source src="videos/cbf.mp4" type="video/mp4">
+      </video>
+    </center>
+    <!-- <img src="figs/cbf.mp4"
       class="center-image"
       width="40%"
-      alt="algorithm structure"/>
+      alt="algorithm structure"/> -->
     <p align="center">
       The learned CBF contour.
     </p>
     <!--/ Main point 2 -->
 
+    <div class="column"></div>
+    <h2 class="title is-3">An improved loss design compared with <a href="https://mit-realm.github.io/gcbf-website/">GCBFv0</a>.</h2>
+    <p>
+      GCBF+ uses an improved loss compared with GCBFv0 so that safety does not compete with goal-reaching in the loss. In the following figures, the orange arrows show the learned controls and the black arrows show the reference controls (\(u_\mathrm{nom}\) for GCBFv0 and \(u_\mathrm{QP}\) for GCBF+). 
+    </p>
+    <div class="column">
+      <div class="content">
+        <div class="columns is-centered">
+          <img src="figs/gcbf_large-1.jpg"
+          width="50%"
+          alt="algorithm structure"/>
+          <p>
+            Using large \(\eta_\mathrm{ctrl}\), the training focuses more on behavior cloning the nominal controller, leading to unsafe behavior.
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <img src="figs/gcbf_small-1.jpg"
+          width="50%"
+          alt="algorithm structure"/>
+          <p>
+            Using small \(\eta_\mathrm{ctrl}\), the training focuses more on safety, and the learned controller cannot reach the goal.
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <img src="figs/gcbf_right-1.jpg"
+          width="50%"
+          alt="algorithm structure"/>
+          <p>
+            Only when using the fine-tuned \(\eta_\mathrm{ctrl}\) can the learned controller be both safe and goal-reaching. However, the training loss still cannot be zero in this case. 
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <img src="figs/gcbf+-1.jpg"
+          width="50%"
+          alt="algorithm structure"/>
+          <p>
+            GCBF+ uses \(\pi_\mathrm{QP}\) instead of \(\pi_\mathrm{nom}\), so that the training loss theoretically can go to zero, leading to a controller that is both safe and goal reaching. 
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="column"></div>
+    <h2 class="title is-3">Using attention to avoid non-smoothness</h2>
+    <div class="column">
+      <div class="columns is-centered">
+        <img src="figs/attn-1.jpg"
+          class="center-image"
+          width="30%"
+          alt="attention"/>
+          <p>
+            The learned attention value goes to 0 when the neighbor nodes are close to the observation radius (\(R=0.5\)). Therefore when the graph structure changes, i.e., the neighbor nodes enter or leave the observation radius, the learned CBF value does not change too much. 
+          </p>
+      </div>
+
     <!-- Main point 3 -->
+    <div class="column"></div>
     <h2 class="title is-3">Numerical Results</h2>
     <div class="column">
       <div class="content">
@@ -322,7 +383,7 @@
     <div class="content">
       <div class="content has-text-justified">
         <p>
-          This work improves on our previous work <a href="https://mit-realm.github.io/gcbf-website/">GCBF.</a>
+          This work improves on our previous work <a href="https://mit-realm.github.io/gcbf-website/">GCBFv0</a>.
 
           For a survey of the field of learning safe control for multi-robot systems, see <a rel="survey" href="https://arxiv.org/pdf/2311.13714.pdf">this paper</a>.
         </p>
