@@ -205,7 +205,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Multi-agent systems (MAS) are ubiquitous in today's world with applications ranging from search-and-rescue missions to connected autonomous vehicles, and swarm robotics. However, distributed, scalable, and safe control of large-scale MAS is a challenging problem. In this paper, we design a distributed framework for safe multi-agent control in large-scale environments with moving obstacles, where a large number of agents are required to maintain safety using only local information and reach their goal locations. We introduce a new class of certificates, termed graph control barrier functions (GCBFs), which are based on the well-established CBF theory for safety guarantees and utilize a graph structure for scalable and generalizable distributed control of MAS. We propose a new training framework GCBF+ that uses graph neural networks (GNNs) to parameterize a candidate GCBF certificate and a distributed control policy. The proposed framework is completely distributed and is capable of directly taking point clouds from LiDAR, instead of actual state information, for real-world robotic applications. We illustrate the efficacy of the proposed method through various hardware experiments on a swarm of drones with objectives ranging from exchanging positions to docking on a moving target. Additionally, we perform extensive numerical experiments, where the number and density of agents, as well as the number of unseen and uncontrolled obstacles, increase. Empirical results show that GCBF+ outperforms leading methods such as GCBFv0, InforMARL, a GNN variant of a multi-agent reinforcement learning (RL) algorithm, as well as handcrafted CBF-based methods. Furthermore, the proposed method does not compromise on the performance, in terms of goal reaching, for achieving high safety rates, which is a common trade-off in RL-based methods. 
+            Distributed, scalable, and safe control of large-scale multi-agent systems (MAS) is a challenging problem. In this paper, we design a distributed framework for safe multi-agent control in large-scale environments with obstacles, where a large number of agents are required to maintain safety using only local information and reach their goal locations. We introduce a new class of certificates, termed graph control barrier function (GCBF), which are based on the well-established control barrier function (CBF) theory for safety guarantees and utilize a graph structure for scalable and generalizable distributed control of MAS. We develop a novel theoretical framework to prove the safety of an arbitrary-sized MAS with a single GCBF. We propose a new training framework GCBF+ that uses graph neural networks (GNNs) to parameterize a candidate GCBF and a distributed control policy. The proposed framework is distributed and is capable of directly taking point clouds from LiDAR, instead of actual state information, for real-world robotic applications. We illustrate the efficacy of the proposed method through various hardware experiments on a swarm of drones with objectives ranging from exchanging positions to docking on a moving target without collision. Additionally, we perform extensive numerical experiments, where the number and density of agents, as well as the number of obstacles, increase. Empirical results show that in complex environments with nonlinear agents (e.g., Crazyflie drones) GCBF+ outperforms the handcrafted CBF-based method with the best performance by up to \(20\%\) for relatively small-scale MAS for up to 256 agents, and leading reinforcement learning (RL) methods by up to \(40\%\) for MAS with 1024 agents. Furthermore, the proposed method does not compromise on the performance, in terms of goal reaching, for achieving high safety rates, which is a common trade-off in RL-based methods.
           </p>
         </div>
       </div>
@@ -224,36 +224,45 @@
       <div class="content">
         <div class="content has-text-justified">
           <b>
-            GCBF+ controller in the DoubleIntegrator environment trained with 8 agents and tested with 64/128 agents
+            GCBF+ controller in the DoubleIntegrator environment trained with 8 agents and tested with 64/128/512 agents
           </b>
           <center>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/DoubleIntegrator_64.mp4" type="video/mp4">
             </video>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/DoubleIntegrator_128.mp4" type="video/mp4">
             </video>
+            <video width="33%" autoplay="" muted="" loop="">
+              <source src="videos/DoubleIntegrator_512_2x.mp4" type="video/mp4">
+            </video>
           </center>
           <b> 
-            GCBF+ controller with 2D obstacles
+            GCBF+ controller with 2D obstacles and 32/64/512 agents
           </b>
           <center>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/Obstacle2D_32.mp4" type="video/mp4">
             </video>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/Obstacle2D_64.mp4" type="video/mp4">
+            </video>
+            <video width="33%" autoplay="" muted="" loop="">
+              <source src="videos/Obstacle2D_512_2x.mp4" type="video/mp4">
             </video>
           </center>
           <b> 
-            GCBF+ controller with 3D obstacles
+            GCBF+ controller with 3D obstacles and 64/128/512 agents
           </b>
           <center>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/Obstacle3D_64.mp4" type="video/mp4">
             </video>
-            <video width="40%" autoplay="" muted="" loop="">
+            <video width="33%" autoplay="" muted="" loop="">
               <source src="videos/Obstacle3D_128.mp4" type="video/mp4">
+            </video>
+            <video width="33%" autoplay="" muted="" loop="">
+              <source src="videos/Obstacle3D_512.mp4" type="video/mp4">
             </video>
           </center>
         </div>
@@ -261,21 +270,44 @@
     </div>
     <!--/ Main point 1 -->
 
+    <h2 class="title is-3">GCBF: safety certificate for arbitrary-sized MAS</h2>
+    <div class="column">
+      <div class="columns is-centered">
+        <img src="figs/teaser.png"
+          class="center-image"
+          width="50%"
+          style="padding: 0px 50px 0px 0px"
+          alt="attention"/>
+          <p>
+            <br>
+            MAS can be naturally viewed as graphs and we define GCBF as a function of only neighboring nodes. <br><br>
+            Assume: <br>
+            1. For given agent \(i\), a neighboring node \(j\) where \(\|p_i - p_j\| \geq R\) does not affect the GCBF value. <br>
+            2. The 0-superlevel set of the GCBF is a subset of the safe set. <br>
+            <br>
+            Then, GCBF certifies the safety of an arbitrary-sized MAS.
+          </p>
+      </div>
+    </div>
+
     <!-- Main point 2 -->
+    <div class="column"></div>
     <h2 class="title is-3">GCBF+ training architecture</h2>
     <div class="column">
       <div class="content">
-        
         <img src="figs/train.png"
           class="center-image"
-          width="80%"
+          width="100%"
           alt="algorithm structure"/>
       </div>
     </div>
     <p>
-      The graph trajectories \(\{\mathcal G^k_0, \mathcal G^k_1, \mathcal G^k_2, \mathcal G^k_3, \dots, \}\) are generated using the previous step learned control policy \(\pi_\phi\), and is labeled as safe control invariant \(\mathcal S_c\) data and unsafe \(\mathcal S_u\) data for training. A nominal control policy \(\pi_{\mathrm{nom}}\) for goal reaching is used in a CBF-QP with the previously learned GCBF \(h_\theta\) to generate \(\pi_{\mathrm{QP}}\). Then, the QP policy along with the CBF conditions are used to define the loss \(\mathcal L\).
+      The sampled input features are labeled as safe control invariant \(\mathcal D_{\mathcal C}\) and unsafe \(\mathcal D_{\mathcal A}\) using the previous step learned control policy \(\pi_\phi\) for training. A nominal control policy \(\pi_{\mathrm{nom}}\) for goal reaching is used in a CBF-QP with the previously learned GCBF \(h_\theta\) to generate \(\pi_{\mathrm{QP}}\). Finally, the QP policy along with the CBF conditions are used to define the loss \(\mathcal L\).
     </p>
     <center>
+      <img src="figs/cbf.png"
+      width="50%"
+      alt="algorithm structure"/>
       <video width="40%" autoplay="" muted="" loop="">
         <source src="videos/cbf.mp4" type="video/mp4">
       </video>
@@ -295,55 +327,41 @@
       GCBF+ uses an improved loss compared with GCBFv0 so that safety does not compete with goal-reaching in the loss. In the following figures, the orange arrows show the learned controls and the black arrows show the reference controls (\(u_\mathrm{nom}\) for GCBFv0 and \(u_\mathrm{QP}\) for GCBF+). 
     </p>
     <div class="column">
-      <div class="content">
-        <div class="columns is-centered">
-          <img src="figs/gcbf_large-1.jpg"
-          width="50%"
-          alt="algorithm structure"/>
+      <div class="columns is-centered">
+        <img src="figs/control_loss_tikz.png"
+          class="center-image"
+          width="55%"
+          style="padding: 10px 50px 0px 0px"
+          alt="attention"/>
           <p>
-            Using large \(\eta_\mathrm{ctrl}\), the training focuses more on behavior cloning the nominal controller, leading to unsafe behavior.
+            <br>
+            For GCBFv0 loss:<br>
+            &bull; Using small \(\eta_\mathrm{ctrl}\), the training focuses more on safety, and the learned controller cannot reach the goal.<br>
+            &bull; Using large \(\eta_\mathrm{ctrl}\), the training focuses more on behavior cloning the nominal controller, leading to unsafe behavior.<br>
+            &bull; Only when using the fine-tuned \(\eta_\mathrm{ctrl}\) can the learned controller be both safe and goal-reaching. However, the training loss still cannot be zero in this case. <br>
+            <br>
+            For GCBF+ loss:<br>
+            \(\pi_\phi\) is not sensitive to \(\eta_\mathrm{ctrl}\), and the learned control aligns much better with the guided signal, meaning that theoretically the loss can go to zero. 
           </p>
-        </div>
-        <div class="columns is-centered">
-          <img src="figs/gcbf_small-1.jpg"
-          width="50%"
-          alt="algorithm structure"/>
-          <p>
-            Using small \(\eta_\mathrm{ctrl}\), the training focuses more on safety, and the learned controller cannot reach the goal.
-          </p>
-        </div>
-        <div class="columns is-centered">
-          <img src="figs/gcbf_right-1.jpg"
-          width="50%"
-          alt="algorithm structure"/>
-          <p>
-            Only when using the fine-tuned \(\eta_\mathrm{ctrl}\) can the learned controller be both safe and goal-reaching. However, the training loss still cannot be zero in this case. 
-          </p>
-        </div>
-        <div class="columns is-centered">
-          <img src="figs/gcbf+-1.jpg"
-          width="50%"
-          alt="algorithm structure"/>
-          <p>
-            GCBF+ uses \(\pi_\mathrm{QP}\) instead of \(\pi_\mathrm{nom}\), so that the training loss theoretically can go to zero, leading to a controller that is both safe and goal reaching. 
-          </p>
-        </div>
       </div>
     </div>
 
     <div class="column"></div>
-    <h2 class="title is-3">Using attention to avoid non-smoothness</h2>
+    <h2 class="title is-3">Using attention to satisfy GCBF assumptions</h2>
     <div class="column">
       <div class="columns is-centered">
-        <img src="figs/attn-1.jpg"
+        <img src="figs/attn-dist.png"
           class="center-image"
           width="50%"
           style="padding: 0px 50px 0px 0px"
           alt="attention"/>
           <p>
-            The learned attention value goes to 0 when the neighbor nodes are close to the observation radius (\(R=0.5\)). Therefore when the graph structure changes, i.e., the neighbor nodes enter or leave the observation radius, the learned CBF value does not change too much. 
+            To certify safety, GCBF needs the assumption that for given agent \(i\), a neighboring node \(j\) where \(\|p_i - p_j\| \geq R\) does not affect the GCBF value. To satisfy the assumption, we apply GNN and graph attention to GCBF \(h\), such that:<br>
+            \(h_\theta(z_i) = \psi_{\theta_4}\left(\sum_{j\in\tilde{\mathcal{N}}_i} \underbrace{\mathrm{softmax}\big( \psi_{\theta_2}(q_{ij}) \big)}_{w_{ij}}\, \psi_{\theta_3}(q_{ij})\right)\)<br>
+            where \(q_{ij} = \psi_{\theta_1}(z_{ij})\) is the encoding.  The weight \(w_{ij}\) approaches \(0\) as the inter-agent distance \(d_{ij}\) approaches \(R\) without explicit supervision, showing that GCBF+ automatically learns to satisfy the assumption. 
           </p>
       </div>
+    </div>
 
     <!-- Main point 3 -->
     <div class="column"></div>
