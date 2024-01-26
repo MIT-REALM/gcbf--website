@@ -24,9 +24,9 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
+  <!-- <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <script src="./static/js/index.js"></script> -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 </head>
 <body>
@@ -277,8 +277,7 @@
       <div class="columns is-centered">
         <img src="figs/teaser.png"
           class="center-image"
-          width="50%"
-          style="padding: 0px 50px 0px 0px"
+          style="padding: 0px 50px 0px 0px; max-width: 50%;"
           alt="attention"/>
           <p>
             <br>
@@ -332,9 +331,8 @@
       <div class="columns is-centered">
         <img src="figs/control_loss_tikz.png"
           class="center-image"
-          width="55%"
-          style="padding: 10px 50px 0px 0px"
-          alt="attention"/>
+          style="padding: 10px 50px 0px 0px; max-width: 50%;"
+          alt="control loss"/>
           <p>
             <br>
             For GCBFv0 loss:<br>
@@ -354,8 +352,7 @@
       <div class="columns is-centered">
         <img src="figs/attn-dist.png"
           class="center-image"
-          width="50%"
-          style="padding: 0px 50px 0px 0px"
+          style="padding: 0px 50px 0px 0px; max-width: 50%;"
           alt="attention"/>
           <p>
             To certify safety, GCBF needs the assumption that for given agent \(i\), a neighboring node \(j\) where \(\|p_i - p_j\| \geq R\) does not affect the GCBF value. To satisfy the assumption, we apply GNN and graph attention to GCBF \(h\), such that:<br>
