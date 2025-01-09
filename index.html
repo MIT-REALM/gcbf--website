@@ -163,31 +163,61 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <div class="hero-body">
-        <h2 class="title is-4">Crazyflie switching position using GCBF+</h2>
         <center>
-          <img width=40% src="./figs/cf_swap8_overlay.jpg"
+          <img width=24% src="./figs/cf_swap8_overlay.jpg"
           alt="Swapping task for the Crazyflie drone platform using GCBF+"/>
-          <video width="52%" autoplay="" muted="" loop="">
+          <img width=24% src="./figs/cf6_static_obs.png"
+          alt="Swapping task for the Crazyflie drone platform using GCBF+"/>
+          <img width=24% src="./figs/cf_atk6_overlay.jpg"
+          alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
+          <img width=24% src="./figs/cf_dock6_overlay.jpg"
+          alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
+        </center>
+      </div>
+      <div class="hero-body">
+        <h2 class="title is-4">Crazyflies switching positions using GCBF+</h2>
+        <center>
+          <img width=45.305% src="./figs/switch.jpg"
+          alt="Swapping task for the Crazyflie drone platform using GCBF+"/>
+          <!-- <img width=40% src="./figs/cf_swap8_overlay.jpg"
+          alt="Swapping task for the Crazyflie drone platform using GCBF+"/> -->
+          <video width="53.695%" autoplay="" muted="" loop="">
             <source src="videos/swap.mp4" type="video/mp4">
           </video>
         </center>
       </div>
       <div class="hero-body">
-        <h2 class="title is-4">Crazyflie switching position with moving obstacle using GCBF+</h2>
+        <h2 class="title is-4">Crazyflies switching positions with static obstacles using GCBF+</h2>
         <center>
-          <img width=40% src="./figs/cf_atk6_overlay.jpg"
+          <img width=45.305% src="./figs/static_obs.jpg"
+          alt="Swapping task for the Crazyflie drone platform using GCBF+"/>
+          <!-- <img width=20% src="./figs/cf_swap8_overlay.jpg"
+          alt="Swapping task for the Crazyflie drone platform using GCBF+"/> -->
+          <video width="53.695%" autoplay="" muted="" loop="">
+            <source src="videos/static_obs.mp4" type="video/mp4">
+          </video>
+        </center>
+      </div>
+      <div class="hero-body">
+        <h2 class="title is-4">Crazyflies switching positions with a moving obstacle using GCBF+</h2>
+        <center>
+          <img width=45.305% src="./figs/move_obs.jpg"
           alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
-          <video width="52%" autoplay="" muted="" loop="">
+          <!-- <img width=40% src="./figs/cf_atk6_overlay.jpg"
+          alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/> -->
+          <video width="53.695%" autoplay="" muted="" loop="">
             <source src="videos/attacker.mp4" type="video/mp4">
           </video>
         </center>
       </div>
       <div class="hero-body">
-        <h2 class="title is-4">Crazyflie docking using GCBF+</h2>
+        <h2 class="title is-4">Crazyflies docking using GCBF+</h2>
         <center>
-          <img width=40% src="./figs/cf_dock6_overlay.jpg"
+          <img width=45.305% src="./figs/docking.jpg"
           alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/>
-          <video width="52%" autoplay="" muted="" loop="">
+          <!-- <img width=40% src="./figs/cf_dock6_overlay.jpg"
+          alt="Swapping with a moving obstacle for the Crazyflie drone platform using GCBF+"/> -->
+          <video width="53.695%" autoplay="" muted="" loop="">
             <source src="videos/docking.mp4" type="video/mp4">
           </video>
         </center>
@@ -216,7 +246,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Distributed, scalable, and safe control of large-scale multi-agent systems (MAS) is a challenging problem. In this paper, we design a distributed framework for safe multi-agent control in large-scale environments with obstacles, where a large number of agents are required to maintain safety using only local information and reach their goal locations. We introduce a new class of certificates, termed graph control barrier function (GCBF), which are based on the well-established control barrier function (CBF) theory for safety guarantees and utilize a graph structure for scalable and generalizable distributed control of MAS. We develop a novel theoretical framework to prove the safety of an arbitrary-sized MAS with a single GCBF. We propose a new training framework GCBF+ that uses graph neural networks (GNNs) to parameterize a candidate GCBF and a distributed control policy. The proposed framework is distributed and is capable of directly taking point clouds from LiDAR, instead of actual state information, for real-world robotic applications. We illustrate the efficacy of the proposed method through various hardware experiments on a swarm of drones with objectives ranging from exchanging positions to docking on a moving target without collision. Additionally, we perform extensive numerical experiments, where the number and density of agents, as well as the number of obstacles, increase. Empirical results show that in complex environments with nonlinear agents (e.g., Crazyflie drones) GCBF+ outperforms the handcrafted CBF-based method with the best performance by up to \(20\%\) for relatively small-scale MAS for up to 256 agents, and leading reinforcement learning (RL) methods by up to \(40\%\) for MAS with 1024 agents. Furthermore, the proposed method does not compromise on the performance, in terms of goal reaching, for achieving high safety rates, which is a common trade-off in RL-based methods.
+            Distributed, scalable, and safe control of large-scale multi-agent systems is a challenging problem. In this paper, we design a distributed framework for safe multi-agent control in large-scale environments with obstacles, where a large number of agents are required to maintain safety using only local information and reach their goal locations. We introduce a new class of certificates, termed graph control barrier function (GCBF), which are based on the well-established control barrier function theory for safety guarantees and utilize a graph structure for scalable and generalizable distributed control of MAS. We develop a novel theoretical framework to prove the safety of an arbitrary-sized MAS with a single GCBF. We propose a new training framework GCBF+ that uses graph neural networks to parameterize a candidate GCBF and a distributed control policy. The proposed framework is distributed and is capable of taking point clouds from LiDAR, instead of actual state information, for real-world robotic applications. We illustrate the efficacy of the proposed method through various hardware experiments on a swarm of drones with objectives ranging from exchanging positions to docking on a moving target without collision. Additionally, we perform extensive numerical experiments, where the number and density of agents, as well as the number of obstacles, increase. Empirical results show that in complex environments with agents with nonlinear dynamics (e.g., Crazyflie drones), GCBF+ outperforms the hand-crafted CBF-based method with the best performance by up to \(20\%\) for relatively small-scale MAS with up to 256 agents, and leading reinforcement learning (RL) methods by up to \(40\%\) for MAS with 1024 agents. Furthermore, the proposed method does not compromise on the performance, in terms of goal reaching, for achieving high safety rates, which is a common trade-off in RL-based methods.
           </p>
         </div>
       </div>
@@ -295,7 +325,7 @@
             1. For given agent \(i\), a neighboring node \(j\) where \(\|p_i - p_j\| \geq R\) does not affect the GCBF value. <br>
             2. The 0-superlevel set of the GCBF is a subset of the safe set. <br>
             <br>
-            Then, GCBF certifies the safety of an arbitrary-sized MAS.
+            Then, GCBF certifies the safety of an <b>arbitrary-sized</b> MAS.
           </p>
       </div>
     </div>
@@ -334,7 +364,7 @@
     <div class="column"></div>
     <h2 class="title is-3">An improved loss design compared with <a href="https://mit-realm.github.io/gcbf-website/">GCBFv0</a>.</h2>
     <p>
-      GCBF+ uses an improved loss compared with GCBFv0 so that safety does not compete with goal-reaching in the loss. In the following figures, the orange arrows show the learned controls and the black arrows show the reference controls (\(u_\mathrm{nom}\) for GCBFv0 and \(u_\mathrm{QP}\) for GCBF+). 
+      GCBF+ uses an improved loss compared with GCBFv0 so that <b>safety does not compete with goal-reaching</b> in the loss. In the following figures, the orange arrows show the learned controls and the black arrows show the reference controls (\(u_\mathrm{nom}\) for GCBFv0 and \(u_\mathrm{QP}\) for GCBF+). 
     </p>
     <div class="column">
       <div class="columns is-centered">
